@@ -1,6 +1,6 @@
-# My Kly App
+# gc
 
-An AI-powered kly application with natural language support.
+AI-powered git commit message generator. Analyzes staged changes and generates commit message candidates for selection.
 
 ## Getting Started
 
