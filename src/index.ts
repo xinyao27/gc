@@ -28,9 +28,10 @@ const generateCommitSchema = z.object({
 // ============ Helper Functions ============
 async function execCommand(
   cmd: string,
+  cwd?: string,
 ): Promise<{ success: boolean; output: string; error?: string }> {
   try {
-    const { stdout, stderr } = await execAsync(cmd);
+    const { stdout, stderr } = await execAsync(cmd, { cwd });
     return { success: true, output: stdout, error: stderr };
   } catch (err: unknown) {
     const error = err as Error & { stdout?: string; stderr?: string };
@@ -181,8 +182,10 @@ const generateCommitTool = tool({
   description: "Generate AI-powered git commit messages based on staged changes",
   inputSchema: generateCommitSchema,
   execute: async ({ format, count, language }, context) => {
+    const cwd = context.invokeDir;
+
     // Step 1: Check git repository
-    const gitCheck = await execCommand("git rev-parse --is-inside-work-tree");
+    const gitCheck = await execCommand("git rev-parse --is-inside-work-tree", cwd);
     if (!gitCheck.success) {
       error("Not a git repository", [
         "Navigate to a git repository",
@@ -192,7 +195,7 @@ const generateCommitTool = tool({
     }
 
     // Step 2: Get staged changes
-    const stagedCheck = await execCommand("git diff --cached --stat");
+    const stagedCheck = await execCommand("git diff --cached --stat", cwd);
     if (!stagedCheck.output.trim()) {
       error("No staged changes", [
         "Use 'git add <file>' to stage changes",
@@ -205,7 +208,7 @@ const generateCommitTool = tool({
     output(stagedCheck.output);
 
     // Step 3: Get full diff
-    const diffResult = await execCommand("git diff --cached");
+    const diffResult = await execCommand("git diff --cached", cwd);
     const diff = diffResult.output;
 
     // Step 4: Get model config
@@ -257,6 +260,7 @@ const generateCommitTool = tool({
       if (shouldCommit) {
         const commitResult = await execCommand(
           `git commit -m "${escapeQuotes(selected as string)}"`,
+          cwd,
         );
         if (commitResult.success) {
           output("Committed successfully!");
