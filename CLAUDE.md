@@ -7,6 +7,7 @@ This file provides guidance to Claude Code when working with this kly app.
 gc is an AI-powered git commit message generator. It analyzes staged changes and uses LLM to automatically generate multiple commit message candidates for user selection.
 
 **Features:**
+
 - Analyzes staged changes via `git diff --cached`
 - Supports two commit formats: Conventional Commits and Gitmoji
 - Supports English and Chinese message generation

@@ -22,10 +22,7 @@ const generateCommitSchema = z.object({
     .max(10)
     .default(5)
     .describe("Number of commit message candidates to generate"),
-  language: z
-    .enum(["en", "zh"])
-    .default("en")
-    .describe("Language for commit message"),
+  language: z.enum(["en", "zh"]).default("en").describe("Language for commit message"),
 });
 
 // ============ Helper Functions ============
