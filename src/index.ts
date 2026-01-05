@@ -287,9 +287,6 @@ export default defineApp({
   name: "gc",
   version: "0.1.0",
   description: "AI-powered git commit message generator",
-  permissions: {
-    apiKeys: true,
-  },
   tools: [generateCommitTool],
   instructions:
     "Generate commit messages for staged git changes. Extract format preference (conventional or gitmoji) and language from user input.",

@@ -64,7 +64,6 @@ kly run github.com/yourusername/your-repo "cheap trip to Bali"
 
 - **Natural Language Processing**: Understands human language and extracts structured parameters
 - **AI Integration**: Uses OpenAI or Anthropic models for intelligent responses
-- **Permission System**: Explicitly requests API key access with user consent
 - **Multi-mode**: Works in CLI, MCP, and remote execution modes
 
 ## Project Structure
@@ -80,10 +79,9 @@ kly run github.com/yourusername/your-repo "cheap trip to Bali"
 
 ## How It Works
 
-1. **Permissions**: The app declares `apiKeys: true` to request access to AI models
-2. **Instructions**: The `instructions` field guides the AI on how to extract parameters
-3. **Schema**: Zod schemas with `.describe()` help the AI understand what each parameter means
-4. **Natural Language**: When you pass free-form text, kly uses AI to match it to your tool's schema
+1. **Instructions**: The `instructions` field guides the AI on how to extract parameters
+2. **Schema**: Zod schemas with `.describe()` help the AI understand what each parameter means
+3. **Natural Language**: When you pass free-form text, kly uses AI to match it to your tool's schema
 
 ## Learn More
 
